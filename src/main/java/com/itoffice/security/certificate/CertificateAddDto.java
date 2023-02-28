@@ -22,10 +22,10 @@ public class CertificateAddDto {
     private String StudentMiddleName;
     @NotNull
     private boolean isStudentMan;
-    @NotBlank
     private String info;
     @NotNull
     private LocalDate date;
     @NotNull
     private Long categoryId;
+    private int place;
 }

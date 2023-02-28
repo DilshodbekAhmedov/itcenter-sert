@@ -26,4 +26,6 @@ public interface CertificateRepository extends JpaRepository<Certificate, Long> 
     @Query("select count(cer) from certificates cer" +
             " where cer.isStudentMan = :isman")
     Integer getCountByStudentMan(boolean isman);
+
+    List<Certificate> findAllByPlace(int place);
 }

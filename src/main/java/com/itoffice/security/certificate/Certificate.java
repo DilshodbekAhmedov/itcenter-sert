@@ -26,10 +26,10 @@ public class Certificate {
     private String studentMiddleName;
     @NotNull
     private boolean isStudentMan;
-    @NotBlank
     private String info;
     @NotNull
     private LocalDate date;
+    private int place;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CertificateCategory category;
@@ -41,5 +41,6 @@ public class Certificate {
         this.studentName = certificateAddDto.getStudentName();
         this.studentSurname = certificateAddDto.getStudentSurname();
         this.studentMiddleName = certificateAddDto.getStudentMiddleName();
+        this.place = certificateAddDto.getPlace();
     }
 }

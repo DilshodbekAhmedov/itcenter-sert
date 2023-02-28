@@ -68,7 +68,7 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public HttpEntity<?> delete(Long id) {
         Optional<Certificate> certificate = certificateDao.findById(id);
-        if (certificate.isEmpty()){
+        if (certificate.isEmpty()) {
             return ResponseEntity.badRequest().body("Certificate not found");
         }
         certificateDao.deleteById(id);
@@ -80,8 +80,13 @@ public class CertificateServiceImpl implements CertificateService {
         InfoDto infoDto = new InfoDto();
         infoDto.setMen(certificateDao.getCountByStudentMan(true));
         infoDto.setMen(certificateDao.getCountByStudentMan(false));
-        infoDto.setAll(infoDto.getMen()+ infoDto.getWomen());
+        infoDto.setAll(infoDto.getMen() + infoDto.getWomen());
         return infoDto;
+    }
+
+    @Override
+    public List<Certificate> getByPlace(int place) {
+        return certificateDao.findAllByPlace(place);
     }
 
 

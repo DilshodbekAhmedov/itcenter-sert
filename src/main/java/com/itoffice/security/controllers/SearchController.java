@@ -33,4 +33,13 @@ public class SearchController {
     ) {
         return Utils.getPageFromList(userService.searchAdmin(searchWord), page, size);
     }
+
+    @GetMapping("/by-place")
+    public Page<Certificate> searchCertificate(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size,
+                                               @RequestParam int place
+    ) {
+        return Utils.getPageFromList(certificateService.getByPlace(place), page, size);
+    }
+
 }

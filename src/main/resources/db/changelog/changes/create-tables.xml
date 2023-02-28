@@ -29,6 +29,7 @@
                 student_middle_name varchar(255),
                 student_name        varchar(255),
                 student_surname     varchar(255),
+                place               integer not null,
                 category_id         bigint  not null
                     constraint fkqrhnue65ptkugwk03gspjovvn
                         references public.certificate_category
