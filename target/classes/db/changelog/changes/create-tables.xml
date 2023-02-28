@@ -45,13 +45,13 @@
             );
 
             alter table public.users
-                owner to postgres;
+                owner to cert_user;
 
             alter table public.certificates
-                owner to postgres;
+                owner to cert_user;
 
             alter table public.certificate_category
-                owner to postgres;
+                owner to cert_user;
         </sql>
     </changeSet>
 </databaseChangeLog>

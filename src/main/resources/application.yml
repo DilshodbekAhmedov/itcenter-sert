@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/DB_ITOFFICE
-    username: postgres
-    password: 9632
+    url: jdbc:postgresql://localhost:5432/cert_db
+    username: cert_user
+    password: 990380971@@
     driver-class-name: org.postgresql.Driver
   liquibase:
     enabled: true
