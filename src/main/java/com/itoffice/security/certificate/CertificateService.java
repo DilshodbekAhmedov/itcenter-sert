@@ -19,4 +19,6 @@ public interface CertificateService {
     HttpEntity<?> delete(Long id);
 
     InfoDto getInfo();
+
+    List<Certificate> getByPlace(int place);
 }
