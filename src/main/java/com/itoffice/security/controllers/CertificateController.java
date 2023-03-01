@@ -1,9 +1,6 @@
 package com.itoffice.security.controllers;
 
-import com.itoffice.security.certificate.Certificate;
-import com.itoffice.security.certificate.CertificateAddDto;
-import com.itoffice.security.certificate.CertificateRepository;
-import com.itoffice.security.certificate.CertificateService;
+import com.itoffice.security.certificate.*;
 import com.itoffice.security.util.ExcelGenerator;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -61,6 +59,11 @@ public class CertificateController {
     @DeleteMapping("/delete")
     public HttpEntity<?> deleteCertificate(@RequestParam @NonNull Long id) {
         return certificateService.delete(id);
+    }
+
+    @PostMapping("/upload")
+    public CustomResponse uploadCertificates(@RequestParam(name = "file") MultipartFile file) {
+        return certificateService.uploadCertificates(file);
     }
 
     @GetMapping("/export-to-excel")

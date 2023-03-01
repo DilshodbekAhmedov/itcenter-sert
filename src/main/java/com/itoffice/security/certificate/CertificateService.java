@@ -4,6 +4,7 @@ import com.itoffice.security.util.InfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface CertificateService {
     InfoDto getInfo();
 
     List<Certificate> getByPlace(int place);
+
+    CustomResponse uploadCertificates(MultipartFile file);
 }

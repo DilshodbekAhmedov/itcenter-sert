@@ -102,7 +102,6 @@ public class ExcelGenerator {
                 createCell(row1, columnCount++, record.getStudentMiddleName(), style1);
                 createCell(row1, columnCount++, record.isStudentMan() ? "Erkak" : "Ayol", style1);
                 createCell(row1, columnCount++, record.getCategory().getName(), style1);
-                createCell(row1, columnCount++, record.getInfo(), style1);
                 createCell(row1, columnCount++, record.getDate().toString(), style1);
             }
         }
