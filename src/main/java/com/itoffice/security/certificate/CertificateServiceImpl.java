@@ -42,9 +42,6 @@ public class CertificateServiceImpl implements CertificateService {
      */
     @Override
     public long save(CertificateAddDto certificateAddDto) {
-        if (existCertificate(certificateAddDto)) {
-            return -1;
-        }
         Optional<CertificateCategory> category = certificateCategoryDao.findById(certificateAddDto.getCategoryId());
         if (category.isEmpty()) {
             return 0;
@@ -66,14 +63,6 @@ public class CertificateServiceImpl implements CertificateService {
         return certificateDao.findAll(pageable);
     }
 
-    private boolean existCertificate(CertificateAddDto certificateAddDto) {
-        return certificateDao.existsCertificateByCategory_IdAndStudentNameAndStudentSurnameAndStudentMiddleName(
-                certificateAddDto.getCategoryId(),
-                certificateAddDto.getStudentName().trim(),
-                certificateAddDto.getStudentSurname().trim(),
-                certificateAddDto.getStudentMiddleName().trim()
-        );
-    }
 
     @Override
     public List<Certificate> searchCertificate(String searchWord) {
@@ -128,18 +117,15 @@ public class CertificateServiceImpl implements CertificateService {
             for (Row row : sheet) {
                 if (!sheet.getRow(0).equals(row) && row.getCell(1).getDateCellValue() != null) {
                     Certificate certificate = new Certificate();
-                    certificate.setPlace((int) row.getCell(0).getNumericCellValue());
-                    certificate.setDate(LocalDate.ofInstant(row.getCell(1).getDateCellValue().toInstant(), ZoneId.of("Asia/Tashkent")));
+                    certificate.setStudentName(row.getCell(0).getStringCellValue());
+                    certificate.setStudentMan(row.getCell(1).getBooleanCellValue());
+                    certificate.setDate(LocalDate.ofInstant(row.getCell(2).getDateCellValue().toInstant(), ZoneId.of("Asia/Tashkent")));
                     certificate.setCategory(
                             categories.stream()
-                                    .filter(category -> category.getId().equals((long) row.getCell(2).getNumericCellValue()))
+                                    .filter(category -> category.getId().equals((long) row.getCell(3).getNumericCellValue()))
                                     .findFirst().orElseThrow()
                     );
-                    certificate.setStudentMan(row.getCell(3).getBooleanCellValue());
-                    certificate.setStudentName(row.getCell(4).getStringCellValue());
-                    certificate.setStudentSurname(row.getCell(5).getStringCellValue());
-                    certificate.setStudentMiddleName(row.getCell(6).getStringCellValue());
-                    certificate.setPlace((int) row.getCell(7).getNumericCellValue());
+                    certificate.setPlace((int) row.getCell(4).getNumericCellValue());
                     certificate.setInfo("INFO");
                     certificates.add(certificate);
                 }

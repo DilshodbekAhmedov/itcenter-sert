@@ -20,10 +20,6 @@ public class Certificate {
     private Long id;
     @NotBlank
     private String studentName;
-    @NotBlank
-    private String studentSurname;
-    @NotBlank
-    private String studentMiddleName;
     @NotNull
     private boolean isStudentMan;
     private String info;
@@ -39,8 +35,6 @@ public class Certificate {
         this.info = certificateAddDto.getInfo();
         this.isStudentMan = certificateAddDto.isStudentMan();
         this.studentName = certificateAddDto.getStudentName();
-        this.studentSurname = certificateAddDto.getStudentSurname();
-        this.studentMiddleName = certificateAddDto.getStudentMiddleName();
         this.place = certificateAddDto.getPlace();
     }
 }

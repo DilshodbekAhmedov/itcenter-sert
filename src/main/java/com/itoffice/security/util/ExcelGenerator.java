@@ -62,6 +62,7 @@ public class ExcelGenerator {
             }
         }
     }
+
     private void writeHeaderForCertificates() {
         sheet = workbook.createSheet("Sertifikat");
         Row row = sheet.createRow(0);
@@ -71,21 +72,18 @@ public class ExcelGenerator {
         font.setFontHeight(16);
         style.setFont(font);
         createCell(row, 0, "ID", style);
-        createCell(row, 1, "Ism", style);
-        createCell(row, 2, "Familya", style);
-        createCell(row, 3, "Sharif", style);
-        createCell(row, 4, "Jins", style);
-        createCell(row, 5, "Kategoriya", style);
-        createCell(row, 6, "Info", style);
-        createCell(row, 7, "Sana", style);
+        createCell(row, 1, "FIO", style);
+        createCell(row, 2, "Jins", style);
+        createCell(row, 3, "Sana", style);
+        createCell(row, 4, "Kategoriya", style);
+        createCell(row, 5, "Markaz Nomi", style);
+
         sheet.setColumnWidth(0, 2500);
         sheet.setColumnWidth(1, 4000);
         sheet.setColumnWidth(2, 4000);
         sheet.setColumnWidth(3, 4000);
         sheet.setColumnWidth(4, 4000);
         sheet.setColumnWidth(5, 4000);
-        sheet.setColumnWidth(6, 4000);
-        sheet.setColumnWidth(7, 4000);
         //Write
         {
             int rowCount = 1;
@@ -95,14 +93,25 @@ public class ExcelGenerator {
             style1.setFont(font1);
             for (Certificate record : certificates) {
                 Row row1 = sheet.createRow(rowCount++);
+                String place = "";
+                switch (record.getPlace()) {
+                    case 1:
+                        place = "IT Park";
+                        break;
+                    case 2:
+                        place = "IT Park Qorasuv";
+                        break;
+                    case 3:
+                        place = "Davlat Xodimlari";
+                        break;
+                }
                 int columnCount = 0;
-                createCell(row1, columnCount++, record.getId(), style1);
+                createCell(row1, columnCount++, "H00" + record.getId(), style1);
                 createCell(row1, columnCount++, record.getStudentName(), style1);
-                createCell(row1, columnCount++, record.getStudentSurname(), style1);
-                createCell(row1, columnCount++, record.getStudentMiddleName(), style1);
                 createCell(row1, columnCount++, record.isStudentMan() ? "Erkak" : "Ayol", style1);
-                createCell(row1, columnCount++, record.getCategory().getName(), style1);
                 createCell(row1, columnCount++, record.getDate().toString(), style1);
+                createCell(row1, columnCount++, record.getCategory().getName(), style1);
+                createCell(row1, columnCount++, place, style1);
             }
         }
     }

@@ -26,9 +26,7 @@
                 date                date    not null,
                 info                varchar(255),
                 is_student_man      boolean not null,
-                student_middle_name varchar(255),
                 student_name        varchar(255),
-                student_surname     varchar(255),
                 place               integer not null,
                 category_id         bigint  not null
                     constraint fkqrhnue65ptkugwk03gspjovvn

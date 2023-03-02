@@ -16,10 +16,6 @@ import java.time.LocalDate;
 public class CertificateAddDto {
     @NotBlank
     private String StudentName;
-    @NotBlank
-    private String StudentSurname;
-    @NotBlank
-    private String StudentMiddleName;
     @NotNull
     private boolean isStudentMan;
     private String info;
