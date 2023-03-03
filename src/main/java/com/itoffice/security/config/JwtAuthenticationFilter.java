@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authHeader.substring(7);
-        if (jwt.length()>10){
+        if (jwt.length()<10){
             filterChain.doFilter(request, response);
             return;
         }
