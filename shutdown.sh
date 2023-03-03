@@ -1,1 +1,1 @@
-kill $(cat ./pid.file)
+fuser -k 8080/tcp
