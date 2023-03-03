@@ -83,7 +83,7 @@ public class CertificateServiceImpl implements CertificateService {
     public InfoDto getInfo() {
         InfoDto infoDto = new InfoDto();
         infoDto.setMen(certificateDao.getCountByStudentMan(true));
-        infoDto.setMen(certificateDao.getCountByStudentMan(false));
+        infoDto.setWomen(certificateDao.getCountByStudentMan(false));
         infoDto.setAll(infoDto.getMen() + infoDto.getWomen());
         return infoDto;
     }
