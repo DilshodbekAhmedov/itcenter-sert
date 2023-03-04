@@ -96,7 +96,7 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public synchronized CustomResponse uploadCertificates(MultipartFile file) {
+    public synchronized ResponseEntity uploadCertificates(MultipartFile file) {
         List<Certificate> certificates = new ArrayList<>();
         List<CertificateCategory> categories = certificateCategoryDao.findAll();
         String serverFilePath = null;
@@ -119,7 +119,7 @@ public class CertificateServiceImpl implements CertificateService {
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
                 if (!sheet.getRow(0).equals(row)) {
-                    if (row.getCell(2).getDateCellValue()==null){
+                    if (row.getCell(2).getDateCellValue() == null) {
                         continue;
                     }
                     Certificate certificate = new Certificate();
@@ -140,11 +140,11 @@ public class CertificateServiceImpl implements CertificateService {
                 certificateDao.saveAll(certificates);
             } catch (Exception e) {
                 LOGGER.error("Error during save: " + e.getMessage());
-                return CustomResponse.builder().message("Foydalanuvchi bor").build();
+                return ResponseEntity.badRequest().body("Saqlash jarayonida xatolik: " + e.getMessage());
             }
         } catch (Exception e) {
             LOGGER.error("Error during read file: " + e.getMessage());
-            return CustomResponse.builder().message("Faylda xatolik bor: " + e.getMessage()).build();
+            return ResponseEntity.badRequest().body("Faylda xatolik: " + e.getMessage());
         } finally {
             if (serverFilePath != null) {
                 File serverFile = new File(serverFilePath);
@@ -155,7 +155,7 @@ public class CertificateServiceImpl implements CertificateService {
             }
         }
         LOGGER.info("Certificate uploading via Excel file finished successfully");
-        return CustomResponse.builder().message("Muvoffaqiyatli saqlandi").build();
+        return ResponseEntity.ok().body("Muvaffaqiyatli saqlandi");
     }
 
     private String getFileExtension(String fileName) {

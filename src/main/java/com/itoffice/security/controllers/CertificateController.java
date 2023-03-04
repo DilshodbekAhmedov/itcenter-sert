@@ -62,7 +62,7 @@ public class CertificateController {
     }
 
     @PostMapping("/upload")
-    public CustomResponse uploadCertificates(@RequestParam(name = "file") MultipartFile file) {
+    public HttpEntity<?> uploadCertificates(@RequestParam(name = "file") MultipartFile file) {
         return certificateService.uploadCertificates(file);
     }
 
