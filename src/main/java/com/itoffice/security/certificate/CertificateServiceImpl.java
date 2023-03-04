@@ -119,6 +119,9 @@ public class CertificateServiceImpl implements CertificateService {
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
                 if (!sheet.getRow(0).equals(row)) {
+                    if (row.getCell(2).getDateCellValue()==null){
+                        continue;
+                    }
                     Certificate certificate = new Certificate();
                     certificate.setStudentName(row.getCell(0).getStringCellValue());
                     certificate.setStudentMan(row.getCell(1).getBooleanCellValue());
