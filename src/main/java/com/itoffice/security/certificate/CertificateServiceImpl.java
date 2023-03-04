@@ -4,6 +4,8 @@ import com.itoffice.security.category.CertificateCategory;
 import com.itoffice.security.category.CertificateCategoryRepository;
 import com.itoffice.security.util.InfoDto;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -30,10 +32,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CertificateServiceImpl implements CertificateService {
+    private static final Logger LOGGER = LogManager.getLogger(CertificateServiceImpl.class);
     private final CertificateRepository certificateDao;
     private final CertificateCategoryRepository certificateCategoryDao;
     private final Object syncObject = new Object();
-
 
     /**
      * return types
@@ -104,6 +106,7 @@ public class CertificateServiceImpl implements CertificateService {
             Files.createDirectories(fileStorageLocation);
             String fileName = UUID.randomUUID() + "-file." + getFileExtension(file.getOriginalFilename());
             if (fileName.contains("..")) {
+                LOGGER.error("Sorry! Filename contains invalid path sequence ");
                 throw new RuntimeException(
                         "Sorry! Filename contains invalid path sequence " + fileName);
             }
@@ -133,18 +136,22 @@ public class CertificateServiceImpl implements CertificateService {
             try {
                 certificateDao.saveAll(certificates);
             } catch (Exception e) {
+                LOGGER.error("Error during save: " + e.getMessage());
                 return CustomResponse.builder().message("Foydalanuvchi bor").build();
             }
         } catch (Exception e) {
+            LOGGER.error("Error during read file: " + e.getMessage());
             return CustomResponse.builder().message("Faylda xatolik bor").build();
         } finally {
             if (serverFilePath != null) {
                 File serverFile = new File(serverFilePath);
                 synchronized (syncObject) {
                     serverFile.delete();
+                    LOGGER.info("file deleted");
                 }
             }
         }
+        LOGGER.info("Certificate uploading via Excel file finished successfully");
         return CustomResponse.builder().message("Muvoffaqiyatli saqlandi").build();
     }
 
