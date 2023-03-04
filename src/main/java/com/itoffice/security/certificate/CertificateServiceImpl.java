@@ -118,7 +118,7 @@ public class CertificateServiceImpl implements CertificateService {
             serverFilePath = serverFile.getPath();
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
-                if (!sheet.getRow(0).equals(row) && row.getCell(2).getDateCellValue() != null) {
+                if (!sheet.getRow(0).equals(row)) {
                     Certificate certificate = new Certificate();
                     certificate.setStudentName(row.getCell(0).getStringCellValue());
                     certificate.setStudentMan(row.getCell(1).getBooleanCellValue());
@@ -141,7 +141,7 @@ public class CertificateServiceImpl implements CertificateService {
             }
         } catch (Exception e) {
             LOGGER.error("Error during read file: " + e.getMessage());
-            return CustomResponse.builder().message("Faylda xatolik bor").build();
+            return CustomResponse.builder().message("Faylda xatolik bor: " + e.getMessage()).build();
         } finally {
             if (serverFilePath != null) {
                 File serverFile = new File(serverFilePath);
