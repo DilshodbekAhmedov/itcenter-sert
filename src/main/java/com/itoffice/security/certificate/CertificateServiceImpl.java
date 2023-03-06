@@ -3,6 +3,7 @@ package com.itoffice.security.certificate;
 import com.itoffice.security.category.CertificateCategory;
 import com.itoffice.security.category.CertificateCategoryRepository;
 import com.itoffice.security.util.InfoDto;
+import com.itoffice.security.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,7 +63,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public Page<Certificate> getAll(Pageable pageable) {
-        return certificateDao.findAll(pageable);
+        return Utils.getPageFromList(certificateDao.findAll(), pageable.getPageNumber(), pageable.getPageSize());
     }
 
 

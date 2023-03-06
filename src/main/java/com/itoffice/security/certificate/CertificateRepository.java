@@ -1,7 +1,5 @@
 package com.itoffice.security.certificate;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,5 +20,12 @@ public interface CertificateRepository extends JpaRepository<Certificate, Long> 
             " where cer.isStudentMan = :isman")
     Integer getCountByStudentMan(boolean isman);
 
+    @Query("select cer from certificates  cer" +
+            " where cer.place = :place" +
+            " order by cer.date desc ")
     List<Certificate> findAllByPlace(int place);
+
+    @Query("select cer from certificates  cer" +
+            " order by cer.date desc ")
+    List<Certificate> findAll();
 }
