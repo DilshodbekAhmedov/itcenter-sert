@@ -22,10 +22,10 @@ public interface CertificateRepository extends JpaRepository<Certificate, Long> 
 
     @Query("select cer from certificates  cer" +
             " where cer.place = :place" +
-            " order by cer.date desc ")
+            " order by cer.id desc ")
     List<Certificate> findAllByPlace(int place);
 
     @Query("select cer from certificates  cer" +
-            " order by cer.date desc ")
+            " order by cer.id desc ")
     List<Certificate> findAll();
 }
