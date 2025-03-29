@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cert_db
+    username: cert_user
+    password: 990380971@@
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: db/changelog/changelog-master.xml
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8081
